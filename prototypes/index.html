@@ -95,6 +95,9 @@
       font-weight: 600;
       color: #0a0a0a;
       margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .prototype-grid {
@@ -153,6 +156,11 @@
       color: #1e40af;
     }
 
+    .card-badge.polish {
+      background: #f3e8ff;
+      color: #6b21a8;
+    }
+
     .card-title {
       font-size: 20px;
       font-weight: 600;
@@ -186,41 +194,42 @@
       transform: translateX(2px);
     }
 
-    .specs-section {
-      background: white;
+    .whats-new {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
       border-radius: 12px;
-      padding: 32px;
+      padding: 24px;
       margin-bottom: 32px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 2px solid #16a34a;
     }
 
-    .specs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-top: 24px;
-    }
-
-    .spec-item {
-      padding: 20px;
-      background: #f9fafb;
-      border-radius: 8px;
-      border-left: 3px solid #16a34a;
-    }
-
-    .spec-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-
-    .spec-value {
-      font-size: 16px;
+    .whats-new h3 {
+      font-size: 18px;
       font-weight: 600;
       color: #0a0a0a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .whats-new ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .whats-new li {
+      padding: 6px 0;
+      padding-left: 24px;
+      position: relative;
+      font-size: 14px;
+      color: #065f46;
+    }
+
+    .whats-new li:before {
+      content: "✨";
+      position: absolute;
+      left: 0;
     }
 
     .footer {
@@ -238,7 +247,19 @@
       <div class="logo">🎨</div>
       <h1 class="title">Chatverce UI Redesign</h1>
       <div class="subtitle">Interactive HTML/CSS Prototypes</div>
-      <div class="meta">Prepared by Jony Ive, Chief Design Officer • February 4, 2026</div>
+      <div class="meta">Prepared by Jony Ive, Chief Design Officer • February 4-5, 2026</div>
+    </div>
+
+    <!-- What's New -->
+    <div class="whats-new">
+      <h3>✨ Updated February 5, 2026</h3>
+      <ul>
+        <li>Chat view now WhatsApp-inspired (message grouping, date dividers, warmer background)</li>
+        <li>Added Dashboard empty state with quick start cards</li>
+        <li>Added AI Agents empty state with visual flow diagram</li>
+        <li>Added Campaigns list with realistic data</li>
+        <li>All designs prioritized by implementation urgency</li>
+      </ul>
     </div>
 
     <!-- Introduction -->
@@ -256,14 +277,10 @@
         <li>Version controllable in Git</li>
         <li>Faster iteration and updates</li>
       </ul>
-      <p>
-        Open any prototype below. Right-click → Inspect Element to see the exact CSS.
-        All styles use the design system defined in <code>assets/css/design-system.css</code>.
-      </p>
     </div>
 
     <!-- Critical Prototypes -->
-    <div class="section-title">🔴 Critical Prototypes (Ship This Week)</div>
+    <div class="section-title">🔴 Critical (Ship This Week)</div>
     <div class="prototype-grid">
       <!-- Chat View -->
       <div class="prototype-card">
@@ -273,8 +290,8 @@
         </div>
         <div class="card-title">Chat View</div>
         <div class="card-description">
-          Fixed conversation interface. Removed promotional banner blocking chat area. 
-          Shows both active and expired conversation states with proper message history.
+          WhatsApp-inspired conversation interface. Message grouping, date dividers, warmer background. 
+          Toggle between active and expired states.
         </div>
         <a href="chat-view.html" class="card-link">
           View Prototype →
@@ -301,12 +318,12 @@
       <div class="prototype-card">
         <div class="card-header">
           <div class="card-icon">👥</div>
-          <div class="card-badge important">IMPORTANT</div>
+          <div class="card-badge critical">CRITICAL</div>
         </div>
         <div class="card-title">CRM Leads Table</div>
         <div class="card-description">
           Redesigned table with breathing room (64px rows), strengthened headers, 
-          no dashes in empty cells, hover states, and full content visibility.
+          no dashes in empty cells, hover states, row selection.
         </div>
         <a href="crm-table.html" class="card-link">
           View Prototype →
@@ -314,52 +331,60 @@
       </div>
     </div>
 
-    <!-- Design System -->
-    <div class="specs-section">
-      <h2 class="section-title">Design System Reference</h2>
-      <p style="color: #6b7280; margin-bottom: 24px;">
-        All prototypes use these design tokens. Developers can reference <code>assets/css/design-system.css</code> 
-        for complete variable definitions.
-      </p>
-      <div class="specs-grid">
-        <div class="spec-item">
-          <div class="spec-label">Primary Color</div>
-          <div class="spec-value" style="color: #16a34a;">#16a34a</div>
+    <!-- Important Prototypes -->
+    <div class="section-title">🟡 Important (Next Sprint)</div>
+    <div class="prototype-grid">
+      <!-- Dashboard -->
+      <div class="prototype-card">
+        <div class="card-header">
+          <div class="card-icon">🏠</div>
+          <div class="card-badge important">IMPORTANT</div>
         </div>
-        <div class="spec-item">
-          <div class="spec-label">Font Family</div>
-          <div class="spec-value" style="font-size: 14px;">System Font Stack</div>
+        <div class="card-title">Dashboard</div>
+        <div class="card-description">
+          Empty state with quick start cards, contextual illustration, and preview of populated dashboard.
+          Shows value proposition clearly.
         </div>
-        <div class="spec-item">
-          <div class="spec-label">Button Height</div>
-          <div class="spec-value">40px</div>
+        <a href="dashboard.html" class="card-link">
+          View Prototype →
+        </a>
+      </div>
+
+      <!-- AI Agents -->
+      <div class="prototype-card">
+        <div class="card-header">
+          <div class="card-icon">🤖</div>
+          <div class="card-badge important">IMPORTANT</div>
         </div>
-        <div class="spec-item">
-          <div class="spec-label">Border Radius</div>
-          <div class="spec-value">6px (base)</div>
+        <div class="card-title">AI Agents</div>
+        <div class="card-description">
+          Empty state with visual flow (agent connected to tools), step-by-step guide,
+          and clear CTAs for getting started.
         </div>
-        <div class="spec-item">
-          <div class="spec-label">Base Spacing</div>
-          <div class="spec-value">4px unit</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Transition</div>
-          <div class="spec-value">200ms ease</div>
-        </div>
+        <a href="ai-agents.html" class="card-link">
+          View Prototype →
+        </a>
       </div>
     </div>
 
-    <!-- What's Fixed -->
-    <div class="intro">
-      <h2>What These Prototypes Fix</h2>
-      <ul>
-        <li><strong>Chat view:</strong> Removed promotional banner, users can now read/reply to messages</li>
-        <li><strong>Button consistency:</strong> All primary actions use green (#16a34a)</li>
-        <li><strong>Visual hierarchy:</strong> Names bold, phone numbers lighter, unread conversations stand out</li>
-        <li><strong>Table spacing:</strong> Increased row height from 48px to 64px for readability</li>
-        <li><strong>Empty cells:</strong> Whitespace instead of "--" dashes (reduces noise)</li>
-        <li><strong>Interactions:</strong> Hover states, focus indicators, smooth transitions</li>
-      </ul>
+    <!-- Polish Prototypes -->
+    <div class="section-title">🟢 Polish (Future)</div>
+    <div class="prototype-grid">
+      <!-- Campaigns -->
+      <div class="prototype-card">
+        <div class="card-header">
+          <div class="card-icon">📢</div>
+          <div class="card-badge polish">POLISH</div>
+        </div>
+        <div class="card-title">Campaigns List</div>
+        <div class="card-description">
+          Campaign table with status pills, metrics columns, action buttons,
+          and pagination. Consistent with CRM table styling.
+        </div>
+        <a href="campaigns.html" class="card-link">
+          View Prototype →
+        </a>
+      </div>
     </div>
 
     <!-- Technical Details -->
@@ -377,39 +402,40 @@
       <pre style="background: #f9fafb; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 13px;">
 designs/prototypes/
 ├── index.html                    ← You are here
-├── chat-view.html                ← Conversation interface
+├── chat-view.html                ← WhatsApp-inspired conversation
 ├── conversations-list.html       ← Inbox sidebar
 ├── crm-table.html                ← Leads table
+├── dashboard.html                ← Dashboard empty state
+├── ai-agents.html                ← AI Agents empty state
+├── campaigns.html                ← Campaigns list
 └── assets/
     └── css/
         └── design-system.css     ← All design tokens
       </pre>
-      <p><strong>Responsive:</strong></p>
-      <p>
-        Prototypes are optimized for desktop (1280px+). For responsive implementation, 
-        follow breakpoints in the detailed specs.
-      </p>
-      <p><strong>Browser Support:</strong></p>
-      <p>
-        Modern browsers (Chrome, Firefox, Safari, Edge). Uses CSS variables, flexbox, grid.
-      </p>
     </div>
 
-    <!-- Next Steps -->
+    <!-- Implementation Priority -->
     <div class="intro">
-      <h2>Next Steps</h2>
-      <p><strong>For the Team:</strong></p>
+      <h2>Implementation Priority</h2>
+      <p><strong>Week 1 (Critical):</strong></p>
       <ol style="padding-left: 20px; color: #374151; line-height: 1.8;">
-        <li>Review each prototype in browser</li>
-        <li>Test interactions (hover, click, toggle views)</li>
-        <li>Inspect code using browser DevTools</li>
-        <li>Reference <code>designs/IMPLEMENTATION-GUIDE.md</code> for priorities</li>
-        <li>Begin implementation starting with Chat View (most critical)</li>
+        <li><strong>Chat view</strong> — Fix blocking UI, add WhatsApp patterns (8-10 hours)</li>
+        <li><strong>Conversations list</strong> — Add hierarchy, grouping, filters (8-10 hours)</li>
+        <li><strong>Button consistency</strong> — Audit all screens, make primary = green (4-6 hours)</li>
       </ol>
-      <p><strong>Questions or Feedback:</strong></p>
-      <p>
-        Contact Jony (jony@siharilabs.com) or via Clawdbot. If anything is unclear, 
-        refer to the detailed specs in <code>designs/*.md</code>.
+      <p><strong>Week 2 (Important):</strong></p>
+      <ol start="4" style="padding-left: 20px; color: #374151; line-height: 1.8;">
+        <li><strong>Dashboard</strong> — Build empty state with quick start (6-8 hours)</li>
+        <li><strong>AI Agents</strong> — Build empty state with flow diagram (6-8 hours)</li>
+        <li><strong>CRM table</strong> — Improve spacing and headers (6-8 hours)</li>
+      </ol>
+      <p><strong>Week 3+ (Polish):</strong></p>
+      <ol start="7" style="padding-left: 20px; color: #374151; line-height: 1.8;">
+        <li><strong>Campaigns list</strong> — Apply consistent table styling (4-6 hours)</li>
+        <li><strong>Settings, other screens</strong> — As needed</li>
+      </ol>
+      <p style="margin-top: 16px; font-weight: 600; color: #16a34a;">
+        Total estimated time: 42-56 hours (~1.5 weeks for 2 developers)
       </p>
     </div>
 
@@ -420,7 +446,7 @@ designs/prototypes/
         — Jony Ive, Chief Design Officer, Sihari Labs
       </p>
       <p style="margin-top: 16px; font-size: 13px;">
-        Version 1.0 • February 4, 2026
+        Version 2.0 • February 5, 2026 • GitHub: <a href="https://github.com/org-siharilabs/chatverce-ui-redesign" style="color: #16a34a;">org-siharilabs/chatverce-ui-redesign</a>
       </p>
     </div>
   </div>

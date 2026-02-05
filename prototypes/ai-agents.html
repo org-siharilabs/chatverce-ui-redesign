@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatverce - AI Agents</title>
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    body {
+      margin: 0;
+      background: #f9fafb;
+    }
+
+    .page-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      min-height: 100vh;
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 24px 32px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #0a0a0a;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    /* Empty State */
+    .empty-state-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 32px;
+      text-align: center;
+    }
+
+    /* AI Agent Illustration */
+    .ai-illustration {
+      width: 200px;
+      height: 160px;
+      margin: 0 auto 32px auto;
+      position: relative;
+    }
+
+    .agent-core {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.3);
+    }
+
+    .agent-connection {
+      position: absolute;
+      width: 2px;
+      height: 40px;
+      background: #16a34a;
+    }
+
+    .agent-connection::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #16a34a;
+      border-radius: 50%;
+    }
+
+    .connection-top {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .connection-top::after {
+      bottom: -4px;
+      left: -3px;
+    }
+
+    .connection-left {
+      top: 50%;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    .connection-left::after {
+      left: -4px;
+      top: -3px;
+    }
+
+    .connection-right {
+      top: 50%;
+      right: 0;
+      width: 40px;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    .connection-right::after {
+      right: -4px;
+      top: -3px;
+    }
+
+    .connection-bottom {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .connection-bottom::after {
+      top: -4px;
+      left: -3px;
+    }
+
+    .tool-icon {
+      position: absolute;
+      font-size: 24px;
+      background: white;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .tool-top {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .tool-left {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    .tool-right {
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+
+    .tool-bottom {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Heading */
+    .empty-heading {
+      font-size: 28px;
+      font-weight: 600;
+      color: #0a0a0a;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .empty-description {
+      font-size: 16px;
+      color: #6b7280;
+      line-height: 1.6;
+      max-width: 560px;
+      margin: 0 auto 40px auto;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      margin-bottom: 32px;
+    }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      margin: 40px 0 24px 0;
+      color: #9ca3af;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e5e7eb;
+    }
+
+    .section-divider span {
+      padding: 0 16px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      background: #f0fdf4;
+      color: #16a34a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+      padding-top: 4px;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0a0a0a;
+      margin-bottom: 4px;
+    }
+
+    .step-arrow {
+      color: #9ca3af;
+      margin: 0 8px;
+    }
+
+    .step-description {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    /* CTAs */
+    .cta-section {
+      margin-top: 32px;
+    }
+
+    .primary-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: #16a34a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      height: 48px;
+      cursor: pointer;
+      transition: all 200ms;
+      margin-bottom: 24px;
+    }
+
+    .primary-cta:hover {
+      background: #15803d;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    }
+
+    .secondary-text {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .secondary-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #16a34a;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .secondary-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-left">
+        <div class="page-title">AI Agents</div>
+        <div class="page-subtitle">Build and deploy AI agents to automate customer interactions across your channels.</div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state-container">
+      <!-- Illustration -->
+      <div class="ai-illustration">
+        <div class="agent-core">🤖</div>
+        <div class="agent-connection connection-top"></div>
+        <div class="agent-connection connection-left"></div>
+        <div class="agent-connection connection-right"></div>
+        <div class="agent-connection connection-bottom"></div>
+        <div class="tool-icon tool-top">📅</div>
+        <div class="tool-icon tool-left">💾</div>
+        <div class="tool-icon tool-right">💬</div>
+        <div class="tool-icon tool-bottom">🔍</div>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="empty-heading">Build Your First AI Agent</h1>
+      <p class="empty-description">
+        AI Agents automate customer interactions, qualify leads, answer questions, and execute workflows — without human intervention.
+      </p>
+
+      <!-- How It Works -->
+      <div class="section-divider">
+        <span>How It Works</span>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <div class="step-title">
+              Choose Tools <span class="step-arrow">→</span>
+            </div>
+            <div class="step-description">
+              Define what your agent can do
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <div class="step-title">
+              Set Behavior <span class="step-arrow">→</span>
+            </div>
+            <div class="step-description">
+              Teach it when and how to respond
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <div class="step-title">
+              Deploy <span class="step-arrow">→</span>
+            </div>
+            <div class="step-description">
+              Connect it to your channels
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div class="cta-section">
+        <button class="primary-cta">
+          <span>+</span>
+          <span>Create Your First Agent</span>
+        </button>
+
+        <div class="secondary-text">Not sure where to start?</div>
+        <a href="#" class="secondary-link">
+          <span>View Agent Templates</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

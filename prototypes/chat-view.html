@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chatverce - Chat View Redesign</title>
+  <title>Chatverce - Chat View (WhatsApp-Inspired)</title>
   <link rel="stylesheet" href="assets/css/design-system.css">
   <style>
     body {
@@ -81,54 +81,102 @@
       color: #6b7280;
     }
 
-    /* Message History */
+    /* Message History - WhatsApp-inspired background */
     .message-history {
       flex: 1;
       overflow-y: auto;
       padding: 24px;
-      background: #f9fafb;
+      /* Warmer background with subtle texture */
+      background: 
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, transparent 1px, transparent 2px, rgba(0,0,0,0.015) 3px),
+        #f0f2f5;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 2px;
+    }
+
+    /* Date Divider */
+    .date-divider {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 12px;
+      color: #667781;
+      font-weight: 400;
+      background: #e9edef;
+      padding: 6px 12px;
+      border-radius: 8px;
+      align-self: center;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.06);
     }
 
     .message-bubble {
       max-width: 70%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      padding: 6px 12px 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    /* Grouped messages - tight spacing */
+    .message-bubble.grouped {
+      margin-top: 2px;
+    }
+
+    .message-bubble.first-in-group {
+      margin-top: 12px;
     }
 
     .message-incoming {
       align-self: flex-start;
       background: white;
-      border-bottom-left-radius: 4px;
+      border-radius: 8px;
+    }
+
+    /* Subtle tail on first message only */
+    .message-incoming.first-in-group {
+      border-bottom-left-radius: 2px;
     }
 
     .message-outgoing {
       align-self: flex-end;
-      background: #16a34a;
-      color: white;
-      border-bottom-right-radius: 4px;
+      background: #d9fdd3;
+      color: #111b21;
+      border-radius: 8px;
+    }
+
+    .message-outgoing.first-in-group {
+      border-bottom-right-radius: 2px;
     }
 
     .message-text {
       font-size: 14px;
       line-height: 1.5;
+      word-wrap: break-word;
     }
 
     .message-time {
       font-size: 11px;
-      margin-top: 6px;
+      margin-top: 4px;
+      display: block;
+      text-align: right;
+      opacity: 0.6;
+    }
+
+    /* Hide timestamp on grouped messages except last */
+    .message-bubble.grouped .message-time {
+      display: none;
+    }
+
+    .message-bubble.last-in-group .message-time {
       display: block;
     }
 
     .message-incoming .message-time {
-      color: #9ca3af;
+      color: #667781;
     }
 
     .message-outgoing .message-time {
-      color: rgba(255, 255, 255, 0.8);
+      color: #667781;
     }
 
     .system-message {
@@ -143,42 +191,46 @@
       margin: 16px 0;
     }
 
-    /* Input Area - Active */
+    /* Input Area - WhatsApp-inspired */
     .input-area {
-      background: white;
+      background: #f0f2f5;
       border-top: 1px solid #e5e7eb;
-      padding: 16px 24px;
-      min-height: 80px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
     }
 
     .input-wrapper {
       position: relative;
+      flex: 1;
     }
 
     .message-input {
       width: 100%;
-      min-height: 40px;
+      min-height: 42px;
       max-height: 120px;
       padding: 10px 80px 10px 12px;
-      border: 1px solid #d1d5db;
+      border: none;
       border-radius: 8px;
       font-size: 14px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-      resize: vertical;
+      resize: none;
+      background: white;
+      transition: box-shadow 200ms;
     }
 
     .message-input:focus {
       outline: none;
-      border-color: #16a34a;
-      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
     }
 
     .send-btn {
       position: absolute;
-      right: 8px;
-      bottom: 8px;
+      right: 6px;
+      bottom: 6px;
       width: 72px;
-      height: 36px;
+      height: 32px;
       background: #16a34a;
       color: white;
       border: none;
@@ -193,10 +245,14 @@
       background: #15803d;
     }
 
+    .send-btn:disabled {
+      background: #86efac;
+      cursor: not-allowed;
+    }
+
     .input-actions {
       display: flex;
-      gap: 8px;
-      margin-top: 8px;
+      gap: 4px;
     }
 
     .action-btn {
@@ -210,10 +266,11 @@
       align-items: center;
       justify-content: center;
       transition: background 200ms;
+      font-size: 20px;
     }
 
     .action-btn:hover {
-      background: #f3f4f6;
+      background: rgba(0,0,0,0.05);
     }
 
     /* Input Area - Expired State */
@@ -222,6 +279,7 @@
       border: 1px solid #fde68a;
       border-radius: 8px;
       padding: 20px 24px;
+      margin: 12px 16px;
     }
 
     .expired-header {
@@ -283,6 +341,14 @@
     .hidden {
       display: none !important;
     }
+
+    /* Checkmarks for sent messages */
+    .message-status {
+      display: inline-flex;
+      margin-left: 4px;
+      color: #667781;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -324,65 +390,72 @@
 
     <!-- Message History -->
     <div class="message-history">
-      <div class="message-bubble message-incoming">
+      <div class="date-divider">Yesterday</div>
+
+      <!-- First group from customer -->
+      <div class="message-bubble message-incoming first-in-group">
         <div class="message-text">Hi, I need help with my order. It hasn't arrived yet and it's been 5 days.</div>
-        <span class="message-time">Yesterday, 2:45 PM</span>
       </div>
 
-      <div class="message-bubble message-outgoing">
+      <!-- Agent response group -->
+      <div class="message-bubble message-outgoing first-in-group">
         <div class="message-text">Hello! I'd be happy to help you with that. Can you please provide your order number?</div>
-        <span class="message-time">Yesterday, 2:47 PM</span>
       </div>
 
-      <div class="message-bubble message-incoming">
+      <!-- Customer response -->
+      <div class="message-bubble message-incoming first-in-group">
         <div class="message-text">Sure, it's #12345</div>
-        <span class="message-time">Yesterday, 2:48 PM</span>
       </div>
 
-      <div class="message-bubble message-outgoing">
+      <!-- Agent response group -->
+      <div class="message-bubble message-outgoing first-in-group">
         <div class="message-text">Thank you! Let me check the status for you. One moment please.</div>
-        <span class="message-time">Yesterday, 2:49 PM</span>
       </div>
 
-      <div class="message-bubble message-incoming">
+      <!-- Customer response -->
+      <div class="message-bubble message-incoming first-in-group last-in-group">
         <div class="message-text">Okay, thank you</div>
-        <span class="message-time">Yesterday, 2:50 PM</span>
+        <span class="message-time">2:50 PM</span>
       </div>
 
-      <div class="message-bubble message-outgoing">
+      <!-- Agent response -->
+      <div class="message-bubble message-outgoing first-in-group last-in-group">
         <div class="message-text">I've checked your order. It's currently out for delivery and should reach you by tomorrow morning. You'll receive a tracking update shortly.</div>
-        <span class="message-time">Yesterday, 2:52 PM</span>
+        <span class="message-time">2:52 PM <span class="message-status">✓✓</span></span>
       </div>
 
-      <div class="message-bubble message-incoming">
+      <!-- Customer response -->
+      <div class="message-bubble message-incoming first-in-group last-in-group">
         <div class="message-text">Great! Thanks for checking. I'll wait for it.</div>
-        <span class="message-time">Yesterday, 2:53 PM</span>
+        <span class="message-time">2:53 PM</span>
       </div>
 
-      <div class="message-bubble message-outgoing">
+      <!-- Agent response -->
+      <div class="message-bubble message-outgoing first-in-group last-in-group">
         <div class="message-text">You're welcome! If you need any further assistance, feel free to reach out. Have a great day! 😊</div>
-        <span class="message-time">Yesterday, 2:54 PM</span>
+        <span class="message-time">2:54 PM <span class="message-status">✓✓</span></span>
       </div>
 
-      <div class="message-bubble message-incoming">
+      <div class="date-divider">Today</div>
+
+      <!-- Customer message today -->
+      <div class="message-bubble message-incoming first-in-group last-in-group">
         <div class="message-text">Thank you so much!</div>
-        <span class="message-time">Today, 10:15 AM</span>
+        <span class="message-time">10:15 AM</span>
       </div>
     </div>
 
     <!-- Input Area -->
     <div class="input-area">
+      <div class="input-actions">
+        <button class="action-btn" title="Attach file">📎</button>
+      </div>
       <div class="input-wrapper">
-        <textarea class="message-input" placeholder="Type your message..." rows="2"></textarea>
+        <textarea class="message-input" placeholder="Type a message" rows="1"></textarea>
         <button class="send-btn">Send</button>
       </div>
       <div class="input-actions">
-        <button class="action-btn" title="Attach file">
-          📎
-        </button>
-        <button class="action-btn" title="Emoji">
-          😊
-        </button>
+        <button class="action-btn" title="Emoji">😊</button>
       </div>
     </div>
   </div>
@@ -411,45 +484,43 @@
 
     <!-- Message History -->
     <div class="message-history">
-      <div class="message-bubble message-incoming">
+      <div class="date-divider">2 Days Ago</div>
+
+      <div class="message-bubble message-incoming first-in-group">
         <div class="message-text">Hello! Is anyone there?</div>
-        <span class="message-time">2 days ago, 3:20 PM</span>
       </div>
 
-      <div class="message-bubble message-outgoing">
+      <div class="message-bubble message-outgoing first-in-group">
         <div class="message-text">Hi! Yes, I'm here. How can I help you?</div>
-        <span class="message-time">2 days ago, 3:25 PM</span>
       </div>
 
-      <div class="message-bubble message-incoming">
+      <div class="message-bubble message-incoming first-in-group last-in-group">
         <div class="message-text">I wanted to know about your services</div>
-        <span class="message-time">2 days ago, 3:26 PM</span>
+        <span class="message-time">3:26 PM</span>
       </div>
 
       <div class="system-message">
         ⚠️ Conversation expired 2 days ago
       </div>
 
-      <div class="message-bubble message-outgoing">
+      <div class="message-bubble message-outgoing first-in-group last-in-group">
         <div class="message-text">We offer WhatsApp automation, CRM, and AI agents for businesses. I'd be happy to share more details!</div>
-        <span class="message-time">2 days ago, 3:27 PM</span>
+        <span class="message-time">3:27 PM <span class="message-status">✓✓</span></span>
       </div>
     </div>
 
     <!-- Expired Input Area -->
-    <div class="input-area">
-      <div class="expired-state">
-        <div class="expired-header">
-          <span>⚠️</span>
-          <span>This conversation expired 2 hours ago</span>
-        </div>
-        <div class="expired-text">
-          WhatsApp allows responses within 24 hours of the last customer message. You can:
-        </div>
-        <div class="expired-actions">
-          <button class="btn btn-primary">Send Template Message</button>
-          <button class="btn btn-secondary">Wait for Customer Reply</button>
-        </div>
+    <div class="expired-state">
+      <div class="expired-header">
+        <span>⚠️</span>
+        <span>This conversation expired 2 hours ago</span>
+      </div>
+      <div class="expired-text">
+        WhatsApp allows responses within 24 hours of the last customer message. You can:
+      </div>
+      <div class="expired-actions">
+        <button class="btn btn-primary">Send Template Message</button>
+        <button class="btn btn-secondary">Wait for Customer Reply</button>
       </div>
     </div>
   </div>
@@ -478,6 +549,15 @@
       const histories = document.querySelectorAll('.message-history');
       histories.forEach(history => {
         history.scrollTop = history.scrollHeight;
+      });
+
+      // Auto-resize textarea
+      const textareas = document.querySelectorAll('.message-input');
+      textareas.forEach(textarea => {
+        textarea.addEventListener('input', function() {
+          this.style.height = 'auto';
+          this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
       });
     });
   </script>
