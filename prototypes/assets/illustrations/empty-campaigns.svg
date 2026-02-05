@@ -1,0 +1,30 @@
+<svg width="200" height="150" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Empty Campaigns / Broadcast Illustration -->
+  
+  <!-- Background -->
+  <circle cx="100" cy="75" r="60" fill="#f0fdf4"/>
+  
+  <!-- Megaphone -->
+  <path d="M65 60 L90 70 L90 80 L65 90 Z" fill="#16a34a"/>
+  <ellipse cx="65" cy="75" rx="8" ry="15" fill="#15803d"/>
+  
+  <!-- Sound waves -->
+  <!-- Wave 1 -->
+  <path d="M95 65 Q105 65 105 75 Q105 85 95 85" stroke="#16a34a" stroke-width="2.5" fill="none" opacity="0.6"/>
+  
+  <!-- Wave 2 -->
+  <path d="M105 60 Q120 60 120 75 Q120 90 105 90" stroke="#16a34a" stroke-width="2.5" fill="none" opacity="0.4"/>
+  
+  <!-- Wave 3 -->
+  <path d="M115 55 Q135 55 135 75 Q135 95 115 95" stroke="#16a34a" stroke-width="2.5" fill="none" opacity="0.3"/>
+  
+  <!-- Message bubbles (broadcast recipients) -->
+  <circle cx="55" cy="55" r="8" fill="#dcfce7" opacity="0.7"/>
+  <circle cx="45" cy="75" r="8" fill="#dcfce7" opacity="0.7"/>
+  <circle cx="55" cy="95" r="8" fill="#dcfce7" opacity="0.7"/>
+  
+  <!-- Target audience icon -->
+  <circle cx="140" cy="75" r="12" stroke="#16a34a" stroke-width="2" fill="none" opacity="0.5"/>
+  <circle cx="140" cy="75" r="6" stroke="#16a34a" stroke-width="2" fill="none" opacity="0.5"/>
+  <circle cx="140" cy="75" r="2" fill="#16a34a" opacity="0.5"/>
+</svg>

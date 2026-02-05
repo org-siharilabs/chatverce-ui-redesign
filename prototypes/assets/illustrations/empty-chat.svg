@@ -1,0 +1,23 @@
+<svg width="200" height="150" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Empty Chat Bubbles Illustration -->
+  
+  <!-- Background -->
+  <circle cx="100" cy="75" r="60" fill="#f9fafb"/>
+  
+  <!-- Left bubble (received message) -->
+  <rect x="35" y="45" width="80" height="35" rx="12" fill="#f3f4f6"/>
+  <rect x="40" y="52" width="50" height="4" rx="2" fill="#d1d5db"/>
+  <rect x="40" y="60" width="65" height="4" rx="2" fill="#d1d5db"/>
+  <rect x="40" y="68" width="40" height="4" rx="2" fill="#d1d5db"/>
+  
+  <!-- Right bubble (sent message) -->
+  <rect x="85" y="90" width="80" height="35" rx="12" fill="#dcfce7"/>
+  <rect x="90" y="97" width="55" height="4" rx="2" fill="#16a34a" opacity="0.3"/>
+  <rect x="90" y="105" width="65" height="4" rx="2" fill="#16a34a" opacity="0.3"/>
+  <rect x="90" y="113" width="45" height="4" rx="2" fill="#16a34a" opacity="0.3"/>
+  
+  <!-- Dots (typing indicator suggestion) -->
+  <circle cx="50" cy="100" r="3" fill="#9ca3af" opacity="0.4"/>
+  <circle cx="60" cy="100" r="3" fill="#9ca3af" opacity="0.4"/>
+  <circle cx="70" cy="100" r="3" fill="#9ca3af" opacity="0.4"/>
+</svg>

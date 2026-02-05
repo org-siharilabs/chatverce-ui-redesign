@@ -1,0 +1,21 @@
+<svg width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Empty Inbox / No Conversations Illustration -->
+  
+  <!-- Background -->
+  <rect x="20" y="20" width="120" height="80" rx="12" fill="#f9fafb"/>
+  
+  <!-- Inbox tray -->
+  <rect x="30" y="30" width="100" height="60" rx="8" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+  
+  <!-- Inbox opening (top cutout) -->
+  <path d="M30 50 L55 65 L105 65 L130 50" fill="white"/>
+  <path d="M30 50 L55 65 L105 65 L130 50" stroke="#e5e7eb" stroke-width="2" fill="none"/>
+  
+  <!-- Empty state icon (envelope outline) -->
+  <rect x="60" y="50" width="40" height="28" rx="4" stroke="#d1d5db" stroke-width="2" fill="none"/>
+  <path d="M60 54 L80 66 L100 54" stroke="#d1d5db" stroke-width="2" fill="none"/>
+  
+  <!-- Checkmark overlay (no messages) -->
+  <circle cx="80" cy="64" r="15" fill="#f3f4f6" opacity="0.9"/>
+  <path d="M73 64 L78 69 L87 59" stroke="#9ca3af" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

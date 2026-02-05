@@ -1,0 +1,41 @@
+<svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Connected Channels Illustration -->
+  
+  <!-- Background circles -->
+  <circle cx="120" cy="90" r="70" fill="#f0fdf4"/>
+  <circle cx="120" cy="90" r="50" fill="#dcfce7"/>
+  
+  <!-- Central hub -->
+  <circle cx="120" cy="90" r="24" fill="#16a34a"/>
+  <path d="M120 78v24M108 90h24" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Connected nodes -->
+  <!-- Top node (WhatsApp) -->
+  <circle cx="120" cy="40" r="16" fill="#25D366"/>
+  <path d="M120 40c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 13c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" fill="white"/>
+  <line x1="120" y1="56" x2="120" y2="66" stroke="#16a34a" stroke-width="2"/>
+  
+  <!-- Right node (Messages) -->
+  <circle cx="170" cy="90" r="16" fill="#3b82f6"/>
+  <rect x="164" y="84" width="12" height="12" rx="2" fill="white"/>
+  <line x1="154" y1="90" x2="166" y2="90" stroke="#16a34a" stroke-width="2"/>
+  
+  <!-- Bottom node (Email) -->
+  <circle cx="120" cy="140" r="16" fill="#f59e0b"/>
+  <path d="M112 135h16v10h-16z" fill="white"/>
+  <path d="M112 135l8 6 8-6" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+  <line x1="120" y1="124" x2="120" y2="114" stroke="#16a34a" stroke-width="2"/>
+  
+  <!-- Left node (Social) -->
+  <circle cx="70" cy="90" r="16" fill="#ec4899"/>
+  <circle cx="70" cy="90" r="6" fill="white"/>
+  <circle cx="75" cy="85" r="2" fill="white"/>
+  <circle cx="65" cy="85" r="2" fill="white"/>
+  <line x1="86" y1="90" x2="96" y2="90" stroke="#16a34a" stroke-width="2"/>
+  
+  <!-- Connection lines (subtle) -->
+  <line x1="120" y1="56" x2="120" y2="66" stroke="#16a34a" stroke-width="2" stroke-dasharray="2 2" opacity="0.4"/>
+  <line x1="154" y1="90" x2="96" y2="90" stroke="#16a34a" stroke-width="2" stroke-dasharray="2 2" opacity="0.4"/>
+  <line x1="120" y1="114" x2="120" y2="124" stroke="#16a34a" stroke-width="2" stroke-dasharray="2 2" opacity="0.4"/>
+  <line x1="86" y1="90" x2="96" y2="90" stroke="#16a34a" stroke-width="2" stroke-dasharray="2 2" opacity="0.4"/>
+</svg>
