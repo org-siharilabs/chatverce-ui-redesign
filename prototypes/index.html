@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatverce UI Redesign - Prototypes</title>
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .logo {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: 600;
+      color: #0a0a0a;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      font-size: 14px;
+      color: #9ca3af;
+    }
+
+    .intro {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .intro h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #0a0a0a;
+      margin-bottom: 16px;
+    }
+
+    .intro p {
+      font-size: 15px;
+      color: #374151;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .intro ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+
+    .intro li {
+      padding: 8px 0;
+      padding-left: 28px;
+      position: relative;
+      font-size: 15px;
+      color: #374151;
+    }
+
+    .intro li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #0a0a0a;
+      margin-bottom: 24px;
+    }
+
+    .prototype-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .prototype-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 300ms;
+      border: 2px solid transparent;
+    }
+
+    .prototype-card:hover {
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.15);
+      border-color: #16a34a;
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      font-size: 32px;
+    }
+
+    .card-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      margin-left: auto;
+    }
+
+    .card-badge.critical {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .card-badge.important {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #0a0a0a;
+      margin-bottom: 8px;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #16a34a;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 200ms;
+    }
+
+    .card-link:hover {
+      background: #15803d;
+      transform: translateX(2px);
+    }
+
+    .specs-section {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .spec-item {
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border-left: 3px solid #16a34a;
+    }
+
+    .spec-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .spec-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0a0a0a;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 32px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">🎨</div>
+      <h1 class="title">Chatverce UI Redesign</h1>
+      <div class="subtitle">Interactive HTML/CSS Prototypes</div>
+      <div class="meta">Prepared by Jony Ive, Chief Design Officer • February 4, 2026</div>
+    </div>
+
+    <!-- Introduction -->
+    <div class="intro">
+      <h2>What You're Looking At</h2>
+      <p>
+        These are pixel-perfect, interactive HTML/CSS prototypes of the Chatverce redesign. 
+        Every color, spacing, and interaction matches the detailed specifications.
+      </p>
+      <p><strong>Why HTML instead of Figma?</strong></p>
+      <ul>
+        <li>Developers can inspect and copy code directly</li>
+        <li>Fully interactive (hover states, clicks, transitions)</li>
+        <li>Responsive and testable at different screen sizes</li>
+        <li>Version controllable in Git</li>
+        <li>Faster iteration and updates</li>
+      </ul>
+      <p>
+        Open any prototype below. Right-click → Inspect Element to see the exact CSS.
+        All styles use the design system defined in <code>assets/css/design-system.css</code>.
+      </p>
+    </div>
+
+    <!-- Critical Prototypes -->
+    <div class="section-title">🔴 Critical Prototypes (Ship This Week)</div>
+    <div class="prototype-grid">
+      <!-- Chat View -->
+      <div class="prototype-card">
+        <div class="card-header">
+          <div class="card-icon">💬</div>
+          <div class="card-badge critical">CRITICAL</div>
+        </div>
+        <div class="card-title">Chat View</div>
+        <div class="card-description">
+          Fixed conversation interface. Removed promotional banner blocking chat area. 
+          Shows both active and expired conversation states with proper message history.
+        </div>
+        <a href="chat-view.html" class="card-link">
+          View Prototype →
+        </a>
+      </div>
+
+      <!-- Conversations List -->
+      <div class="prototype-card">
+        <div class="card-header">
+          <div class="card-icon">📋</div>
+          <div class="card-badge critical">CRITICAL</div>
+        </div>
+        <div class="card-title">Conversations List</div>
+        <div class="card-description">
+          Inbox sidebar with visual hierarchy. Bold names, unread indicators, time grouping.
+          Toggle between All and Unread views.
+        </div>
+        <a href="conversations-list.html" class="card-link">
+          View Prototype →
+        </a>
+      </div>
+
+      <!-- CRM Table -->
+      <div class="prototype-card">
+        <div class="card-header">
+          <div class="card-icon">👥</div>
+          <div class="card-badge important">IMPORTANT</div>
+        </div>
+        <div class="card-title">CRM Leads Table</div>
+        <div class="card-description">
+          Redesigned table with breathing room (64px rows), strengthened headers, 
+          no dashes in empty cells, hover states, and full content visibility.
+        </div>
+        <a href="crm-table.html" class="card-link">
+          View Prototype →
+        </a>
+      </div>
+    </div>
+
+    <!-- Design System -->
+    <div class="specs-section">
+      <h2 class="section-title">Design System Reference</h2>
+      <p style="color: #6b7280; margin-bottom: 24px;">
+        All prototypes use these design tokens. Developers can reference <code>assets/css/design-system.css</code> 
+        for complete variable definitions.
+      </p>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-label">Primary Color</div>
+          <div class="spec-value" style="color: #16a34a;">#16a34a</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Font Family</div>
+          <div class="spec-value" style="font-size: 14px;">System Font Stack</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Button Height</div>
+          <div class="spec-value">40px</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Border Radius</div>
+          <div class="spec-value">6px (base)</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Base Spacing</div>
+          <div class="spec-value">4px unit</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Transition</div>
+          <div class="spec-value">200ms ease</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What's Fixed -->
+    <div class="intro">
+      <h2>What These Prototypes Fix</h2>
+      <ul>
+        <li><strong>Chat view:</strong> Removed promotional banner, users can now read/reply to messages</li>
+        <li><strong>Button consistency:</strong> All primary actions use green (#16a34a)</li>
+        <li><strong>Visual hierarchy:</strong> Names bold, phone numbers lighter, unread conversations stand out</li>
+        <li><strong>Table spacing:</strong> Increased row height from 48px to 64px for readability</li>
+        <li><strong>Empty cells:</strong> Whitespace instead of "--" dashes (reduces noise)</li>
+        <li><strong>Interactions:</strong> Hover states, focus indicators, smooth transitions</li>
+      </ul>
+    </div>
+
+    <!-- Technical Details -->
+    <div class="intro">
+      <h2>For Developers</h2>
+      <p><strong>How to Use These:</strong></p>
+      <ul>
+        <li>Open any HTML file in a browser</li>
+        <li>Right-click → Inspect Element to see CSS</li>
+        <li>All styles reference <code>design-system.css</code></li>
+        <li>Copy class names and styles directly into your codebase</li>
+        <li>Measurements are precise (no guesswork)</li>
+      </ul>
+      <p><strong>Project Structure:</strong></p>
+      <pre style="background: #f9fafb; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 13px;">
+designs/prototypes/
+├── index.html                    ← You are here
+├── chat-view.html                ← Conversation interface
+├── conversations-list.html       ← Inbox sidebar
+├── crm-table.html                ← Leads table
+└── assets/
+    └── css/
+        └── design-system.css     ← All design tokens
+      </pre>
+      <p><strong>Responsive:</strong></p>
+      <p>
+        Prototypes are optimized for desktop (1280px+). For responsive implementation, 
+        follow breakpoints in the detailed specs.
+      </p>
+      <p><strong>Browser Support:</strong></p>
+      <p>
+        Modern browsers (Chrome, Firefox, Safari, Edge). Uses CSS variables, flexbox, grid.
+      </p>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="intro">
+      <h2>Next Steps</h2>
+      <p><strong>For the Team:</strong></p>
+      <ol style="padding-left: 20px; color: #374151; line-height: 1.8;">
+        <li>Review each prototype in browser</li>
+        <li>Test interactions (hover, click, toggle views)</li>
+        <li>Inspect code using browser DevTools</li>
+        <li>Reference <code>designs/IMPLEMENTATION-GUIDE.md</code> for priorities</li>
+        <li>Begin implementation starting with Chat View (most critical)</li>
+      </ol>
+      <p><strong>Questions or Feedback:</strong></p>
+      <p>
+        Contact Jony (jony@siharilabs.com) or via Clawdbot. If anything is unclear, 
+        refer to the detailed specs in <code>designs/*.md</code>.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>
+        Built with precision. Every pixel matters.<br>
+        — Jony Ive, Chief Design Officer, Sihari Labs
+      </p>
+      <p style="margin-top: 16px; font-size: 13px;">
+        Version 1.0 • February 4, 2026
+      </p>
+    </div>
+  </div>
+</body>
+</html>

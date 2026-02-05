@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatverce - CRM Table Redesign</title>
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    body {
+      margin: 0;
+      background: #f9fafb;
+    }
+
+    .page-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      min-height: 100vh;
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 24px 32px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #0a0a0a;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Filters */
+    .filters-bar {
+      padding: 16px 32px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      gap: 12px;
+    }
+
+    .search-input {
+      width: 320px;
+      height: 40px;
+      padding: 0 12px 0 36px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      background: white url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12Z' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14 14L10.5 10.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat;
+      background-position: 12px center;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #16a34a;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+    }
+
+    /* Table Container */
+    .table-container {
+      margin: 24px 32px 32px 32px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* Table Header */
+    thead {
+      background: #f9fafb;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    th:first-child {
+      width: 48px;
+    }
+
+    /* Table Body */
+    tbody tr {
+      height: 64px;
+      border-bottom: 1px solid #f3f4f6;
+      transition: background 200ms;
+    }
+
+    tbody tr:hover {
+      background: #f9fafb;
+      cursor: pointer;
+    }
+
+    tbody tr.selected {
+      background: #f0fdf4;
+    }
+
+    td {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    /* Checkbox */
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .checkbox:checked {
+      background: #16a34a;
+      border-color: #16a34a;
+    }
+
+    /* Name */
+    .lead-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: #0a0a0a;
+      text-transform: capitalize;
+    }
+
+    /* Phone */
+    .lead-phone {
+      font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Source Badge */
+    .source-badge {
+      display: inline-flex;
+      padding: 4px 10px;
+      background: #f3f4f6;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      text-transform: capitalize;
+    }
+
+    /* Empty cell - just whitespace */
+    .empty-cell {
+      color: transparent;
+    }
+
+    /* Assigned */
+    .assigned-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .assigned-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .unassigned {
+      font-style: italic;
+      color: #9ca3af;
+      font-size: 13px;
+    }
+
+    /* Created Date */
+    .created-date {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    /* Pagination */
+    .pagination {
+      padding: 16px 32px;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pagination-info {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .pagination-controls {
+      display: flex;
+      gap: 4px;
+    }
+
+    .page-btn {
+      min-width: 36px;
+      height: 36px;
+      padding: 0 12px;
+      background: transparent;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #374151;
+      cursor: pointer;
+      transition: all 200ms;
+    }
+
+    .page-btn:hover:not(.active) {
+      background: #f9fafb;
+    }
+
+    .page-btn.active {
+      background: #16a34a;
+      color: white;
+      border-color: #16a34a;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-left">
+        <div class="page-title">Leads</div>
+        <div class="page-subtitle">Manage and qualify your leads</div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary">
+          <span>↑</span>
+          <span>Import</span>
+        </button>
+        <button class="btn btn-primary">
+          <span>+</span>
+          <span>New Lead</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filters Bar -->
+    <div class="filters-bar">
+      <input type="text" class="search-input" placeholder="Search leads...">
+      <select class="select" style="min-width: 160px; height: 40px;">
+        <option>All Sources</option>
+        <option>WhatsApp</option>
+        <option>Email</option>
+        <option>Web</option>
+        <option>Manual</option>
+      </select>
+      <select class="select" style="min-width: 160px; height: 40px;">
+        <option>All Statuses</option>
+        <option>PENDING</option>
+        <option>QUALIFIED</option>
+        <option>CONTACTED</option>
+        <option>CONVERTED</option>
+      </select>
+      <select class="select" style="min-width: 160px; height: 40px;">
+        <option>All Assignees</option>
+        <option>Unassigned</option>
+        <option>Sandeep</option>
+        <option>Dev</option>
+        <option>Vicky</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" class="checkbox"></th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Source</th>
+            <th>Status</th>
+            <th>Score</th>
+            <th>Assigned</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">Anurag</td>
+            <td class="lead-phone">8746453524</td>
+            <td>anu@gmail.com</td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="unassigned">Unassigned</span></td>
+            <td class="created-date">Feb 4</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">Anurag</td>
+            <td class="lead-phone">975947423</td>
+            <td>anuroy01@gmail.in</td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="unassigned">Unassigned</span></td>
+            <td class="created-date">Feb 3</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">dev</td>
+            <td class="lead-phone">+919516673201</td>
+            <td>rathore</td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td>
+              <div class="assigned-user">
+                <div class="assigned-avatar" style="background: #f59e0b;">D</div>
+                <span>Dev</span>
+              </div>
+            </td>
+            <td class="created-date">Jan 31</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">Sandeep</td>
+            <td class="lead-phone">+919044585766</td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="source-badge">whatsApp</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td>
+              <div class="assigned-user">
+                <div class="assigned-avatar" style="background: #16a34a;">S</div>
+                <span>Sandeep</span>
+              </div>
+            </td>
+            <td class="created-date">Jan 30</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">Vicky dev</td>
+            <td class="lead-phone">+916207471887</td>
+            <td>devvrat@gmail.com</td>
+            <td><span class="source-badge">whatsApp</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td>
+              <div class="assigned-user">
+                <div class="assigned-avatar" style="background: #8b5cf6;">V</div>
+                <span>Vicky</span>
+              </div>
+            </td>
+            <td class="created-date">Jan 29</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">DEVA</td>
+            <td class="lead-phone">+916269141202</td>
+            <td>dev1a@gmail.com</td>
+            <td><span class="source-badge">whatsApp</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="unassigned">Unassigned</span></td>
+            <td class="created-date">Jan 28</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">Sandeep</td>
+            <td class="lead-phone">+916269141202</td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="unassigned">Unassigned</span></td>
+            <td class="created-date">Jan 27</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">Vicky Kumar Maurya</td>
+            <td class="lead-phone">+916207471887</td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="unassigned">Unassigned</span></td>
+            <td class="created-date">Jan 25</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">Ahreen</td>
+            <td class="lead-phone">+917318343340</td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="source-badge">whatsApp</span></td>
+            <td><span class="pill pill-qualified">QUALIFIED</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td>
+              <div class="assigned-user">
+                <div class="assigned-avatar" style="background: #ec4899;">A</div>
+                <span>Ahreen</span>
+              </div>
+            </td>
+            <td class="created-date">Jan 24</td>
+          </tr>
+
+          <tr>
+            <td><input type="checkbox" class="checkbox"></td>
+            <td class="lead-name">Vicky Kumar Maurya</td>
+            <td class="lead-phone">+919453764081</td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="pill pill-pending">PENDING</span></td>
+            <td><span class="empty-cell">—</span></td>
+            <td><span class="unassigned">Unassigned</span></td>
+            <td class="created-date">Jan 23</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <div class="pagination-info">Showing 1-10 of 247 leads</div>
+        <div class="pagination-controls">
+          <button class="page-btn" disabled>< Previous</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span style="padding: 0 8px; color: #6b7280;">...</span>
+          <button class="page-btn">25</button>
+          <button class="page-btn">Next ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Row selection
+    document.querySelectorAll('tbody tr').forEach(row => {
+      row.addEventListener('click', function(e) {
+        if (e.target.type !== 'checkbox') {
+          const checkbox = this.querySelector('.checkbox');
+          checkbox.checked = !checkbox.checked;
+          this.classList.toggle('selected', checkbox.checked);
+        }
+      });
+
+      row.querySelector('.checkbox').addEventListener('click', function(e) {
+        e.stopPropagation();
+        row.classList.toggle('selected', this.checked);
+      });
+    });
+
+    // Select all
+    document.querySelector('thead .checkbox').addEventListener('change', function() {
+      document.querySelectorAll('tbody .checkbox').forEach(cb => {
+        cb.checked = this.checked;
+        cb.closest('tr').classList.toggle('selected', this.checked);
+      });
+    });
+  </script>
+</body>
+</html>

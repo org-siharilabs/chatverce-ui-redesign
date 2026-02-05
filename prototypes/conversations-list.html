@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatverce - Conversations List Redesign</title>
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    body {
+      margin: 0;
+      background: #f9fafb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .conversations-container {
+      width: 380px;
+      height: 90vh;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .header-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #0a0a0a;
+    }
+
+    .add-btn {
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 20px;
+      color: #374151;
+      transition: background 200ms;
+    }
+
+    .add-btn:hover {
+      background: #f3f4f6;
+    }
+
+    /* Tab Bar */
+    .tab-bar {
+      padding: 12px 20px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab {
+      height: 36px;
+      padding: 0 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all 200ms;
+    }
+
+    .tab:not(.active) {
+      background: transparent;
+      color: #6b7280;
+    }
+
+    .tab:not(.active):hover {
+      background: #f3f4f6;
+    }
+
+    .tab.active {
+      background: #16a34a;
+      color: white;
+    }
+
+    /* Filters */
+    .filters {
+      padding: 12px 20px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      gap: 12px;
+    }
+
+    .filter-select {
+      height: 36px;
+      min-width: 120px;
+      padding: 0 28px 0 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 13px;
+      background: white;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+
+    /* Conversation List */
+    .conversation-list {
+      flex: 1;
+      overflow-y: auto;
+      background: white;
+    }
+
+    .time-group-header {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 12px 20px 8px 20px;
+      background: #f9fafb;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    /* Conversation Item */
+    .conversation-item {
+      position: relative;
+      min-height: 76px;
+      padding: 12px 20px;
+      border-bottom: 1px solid #f3f4f6;
+      cursor: pointer;
+      transition: background 200ms;
+      display: flex;
+      gap: 12px;
+    }
+
+    .conversation-item:hover {
+      background: #f9fafb;
+    }
+
+    .conversation-item.unread {
+      background: #f0fdf4;
+      border-left: 3px solid #16a34a;
+    }
+
+    .conversation-item.unread:hover {
+      background: #dcfce7;
+    }
+
+    .conversation-item.active {
+      background: #ecfdf5;
+      border-left: 3px solid #16a34a;
+    }
+
+    .conversation-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .conversation-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .conversation-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .conversation-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0a0a0a;
+    }
+
+    .conversation-item.unread .conversation-name {
+      font-weight: 600;
+    }
+
+    .new-badge {
+      background: #16a34a;
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .conversation-phone {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+
+    .conversation-preview {
+      font-size: 13px;
+      color: #9ca3af;
+      line-height: 1.4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .conversation-item.unread .conversation-preview {
+      color: #6b7280;
+      font-weight: 400;
+    }
+
+    .conversation-meta {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .conversation-time {
+      font-size: 12px;
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+
+    .unread-count {
+      width: 20px;
+      height: 20px;
+      background: #16a34a;
+      color: white;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="conversations-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-title">Chats</div>
+      <button class="add-btn">+</button>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+      <button class="tab active">All</button>
+      <button class="tab">Unread</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <select class="filter-select">
+        <option>ALL</option>
+        <option>WhatsApp</option>
+        <option>Telegram</option>
+      </select>
+      <select class="filter-select">
+        <option>Date range</option>
+        <option>Today</option>
+        <option>This week</option>
+        <option>This month</option>
+      </select>
+    </div>
+
+    <!-- Conversation List -->
+    <div class="conversation-list">
+      <!-- TODAY -->
+      <div class="time-group-header">TODAY</div>
+
+      <div class="conversation-item unread active">
+        <div class="conversation-avatar" style="background: #16a34a;">D</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">DEVA</div>
+            <div class="new-badge">NEW</div>
+          </div>
+          <div class="conversation-phone">+916269141202</div>
+          <div class="conversation-preview">Hello! Is anyone there?</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">04:11 PM</div>
+          <div class="unread-count">1</div>
+        </div>
+      </div>
+
+      <div class="conversation-item unread">
+        <div class="conversation-avatar" style="background: #8b5cf6;">V</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">Vicky</div>
+            <div class="new-badge">NEW</div>
+          </div>
+          <div class="conversation-phone">+916207471887</div>
+          <div class="conversation-preview">Thank you so much!</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">10:15 AM</div>
+          <div class="unread-count">1</div>
+        </div>
+      </div>
+
+      <!-- YESTERDAY -->
+      <div class="time-group-header">YESTERDAY</div>
+
+      <div class="conversation-item">
+        <div class="conversation-avatar" style="background: #3b82f6;">U</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">Unknown</div>
+          </div>
+          <div class="conversation-phone">+919161005798</div>
+          <div class="conversation-preview">Hi, I need some help with...</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">02:15 PM</div>
+        </div>
+      </div>
+
+      <div class="conversation-item">
+        <div class="conversation-avatar" style="background: #f59e0b;">S</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">Sandeep</div>
+          </div>
+          <div class="conversation-phone">+919044585766</div>
+          <div class="conversation-preview">Thanks for the update!</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">11:30 AM</div>
+        </div>
+      </div>
+
+      <!-- THIS WEEK -->
+      <div class="time-group-header">THIS WEEK</div>
+
+      <div class="conversation-item">
+        <div class="conversation-avatar" style="background: #ec4899;">S</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">Subhas</div>
+          </div>
+          <div class="conversation-phone">+918920412433</div>
+          <div class="conversation-preview">Can you send me the details?</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">Saturday</div>
+        </div>
+      </div>
+
+      <div class="conversation-item">
+        <div class="conversation-avatar" style="background: #16a34a;">A</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">Anurag</div>
+          </div>
+          <div class="conversation-phone">+919264902753</div>
+          <div class="conversation-preview">Looking forward to it.</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">Thursday</div>
+        </div>
+      </div>
+
+      <div class="conversation-item">
+        <div class="conversation-avatar" style="background: #3b82f6;">U</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">Unknown</div>
+          </div>
+          <div class="conversation-phone">6207471887</div>
+          <div class="conversation-preview">Is this still available?</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">Thursday</div>
+        </div>
+      </div>
+
+      <div class="conversation-item">
+        <div class="conversation-avatar" style="background: #8b5cf6;">U</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">Unknown</div>
+          </div>
+          <div class="conversation-phone">6269141202</div>
+          <div class="conversation-preview">Got it, thanks!</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">Thursday</div>
+        </div>
+      </div>
+
+      <div class="conversation-item">
+        <div class="conversation-avatar" style="background: #f59e0b;">U</div>
+        <div class="conversation-content">
+          <div class="conversation-header">
+            <div class="conversation-name">Unknown</div>
+          </div>
+          <div class="conversation-phone">+918299233058</div>
+          <div class="conversation-preview">Perfect, see you then.</div>
+        </div>
+        <div class="conversation-meta">
+          <div class="conversation-time">Thursday</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add click interaction
+    document.querySelectorAll('.conversation-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.conversation-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter logic would go here
+        if (this.textContent === 'Unread') {
+          // Show only unread conversations
+          document.querySelectorAll('.conversation-item').forEach(item => {
+            if (!item.classList.contains('unread')) {
+              item.style.display = 'none';
+            } else {
+              item.style.display = 'flex';
+            }
+          });
+          // Hide empty groups
+          document.querySelectorAll('.time-group-header').forEach(header => {
+            const nextElements = [];
+            let next = header.nextElementSibling;
+            while (next && !next.classList.contains('time-group-header')) {
+              if (next.classList.contains('conversation-item')) {
+                nextElements.push(next);
+              }
+              next = next.nextElementSibling;
+            }
+            const hasVisible = nextElements.some(el => el.style.display !== 'none');
+            header.style.display = hasVisible ? 'block' : 'none';
+          });
+        } else {
+          // Show all conversations
+          document.querySelectorAll('.conversation-item').forEach(item => {
+            item.style.display = 'flex';
+          });
+          document.querySelectorAll('.time-group-header').forEach(header => {
+            header.style.display = 'block';
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
